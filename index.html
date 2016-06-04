@@ -1,0 +1,3063 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!--开发者说明-->
+    <meta name="author" content="BruceWan" />
+    <meta name="generator" content="Softwan" />
+    <meta name="copyright" content="China by BruceWan" />
+    <meta name="keywords" content="游戏, 小游戏, 益智, 益智类游戏, 2048, 游戏平台" />
+    <meta name="description" content="游戏中心的游戏可以免费玩耍，如有问题请联系E-mail:1101587171@qq.com" />
+    <!--/*<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />//不允许缩放*/-->
+    <link rel="shortcut icon" href="image/favicon.ico" />
+    <title>2048</title>
+    <style>
+        body {
+            moz-user-select: -moz-none;
+            -moz-user-select: none;
+            -o-user-select: none;
+            -khtml-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            padding: 0px;
+            margin: 0px;
+            background-color: #FAF8EF;
+            cursor: default;
+        }
+
+        .mainDisplay {
+            border-color: #91877E;
+            border-width: 8px;
+            border-style: double;
+            width: 640px;
+            height: 960px;
+            background-repeat: no-repeat;
+            margin: auto;
+            display: block;
+            background-color: transparent;
+            cursor: default;
+            z-index: 1;
+        }
+
+        .divguide1 {
+            cursor: default;
+            width: 100%;
+            height: 100%;
+            display: none;
+            background-image: url(image/guide1.png);
+            background-repeat: no-repeat;
+        }
+
+        .divguide2 {
+            cursor: default;
+            width: 100%;
+            height: 100%;
+            display: none;
+            background-image: url(image/guide2.png);
+            background-repeat: no-repeat;
+        }
+
+        .divguide3 {
+            cursor: default;
+            width: 100%;
+            height: 100%;
+            display: none;
+            background-image: url(image/guide3.png);
+            background-repeat: no-repeat;
+        }
+
+        .divguidebtn {
+            width: 370px;
+            background-color: transparent;
+            height: 14px;
+            padding-left: 270px;
+            padding-top: 910px;
+        }
+
+        .pointgraybtn {
+            width: 14px;
+            height: 14px;
+            background-repeat: no-repeat;
+            background-image: url(image/pointgray.png);
+            float: left;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+
+        .pointorangebtn {
+            width: 14px;
+            height: 14px;
+            background-repeat: no-repeat;
+            background-image: url(image/pointorange.png);
+            float: left;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+
+        .divguidebtn2 {
+            width: 370px;
+            background-color: transparent;
+            height: 14px;
+            padding-left: 270px;
+        }
+
+        .divconfigbtnp3 {
+            width: 100%;
+            background-color: transparent;
+            height: 14px;
+            padding-left: 10px;
+        }
+
+        .divscoresharebtn {
+            width: 100%;
+            padding-top: 40px;
+            padding-bottom: 30px;
+        }
+
+        .divscoresharebtn2 {
+            background-image: url(image/sharebtn.png);
+            background-repeat: no-repeat;
+            width: 400px;
+            height: 120px;
+            margin-left: 110px;
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+        .divmoregamebtn {
+            width: 100%;
+            padding-top: 610px;
+            padding-bottom: 80px;
+        }
+
+        .divmoregamebtn2 {
+            background-image: url(image/moregamebtn.png);
+            background-repeat: no-repeat;
+            width: 400px;
+            height: 120px;
+            margin-left: 110px;
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+        .divletsplaybtn {
+            width: 100%;
+            padding-top: 710px;
+            padding-bottom: 80px;
+        }
+
+        .divletsplaybtn2 {
+            background-image: url(image/letsplaybtn.png);
+            background-repeat: no-repeat;
+            width: 400px;
+            height: 120px;
+            margin-left: 110px;
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+        .divgameover {
+            cursor: default;
+            width: 100%;
+            height: 100%;
+            display: none;
+            background-image: url(image/gameoverbg.png);
+            background-repeat: no-repeat;
+        }
+
+        .divwin {
+            cursor: default;
+            width: 100%;
+            height: 100%;
+            display: none;
+            background-image: url(image/winbg.png);
+            background-repeat: no-repeat;
+        }
+
+        .divwinkeepgoingbtn2 {
+            background-image: url(image/keepgoingbtn.png);
+            background-repeat: no-repeat;
+            width: 400px;
+            height: 120px;
+            margin-left: 110px;
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+        .divgameoversharebtn {
+            width: 100%;
+            padding-top: 105px;
+            padding-bottom: 220px;
+        }
+
+        .divgameoversharebtn2 {
+            background-image: url(image/sharebtn.png);
+            background-repeat: no-repeat;
+            width: 400px;
+            height: 120px;
+            margin-left: 120px;
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+        .divgameovertryagainbtn {
+            width: 100%;
+        }
+
+        .divgameovertryagainbtn2 {
+            background-image: url(image/tryagainbtn.png);
+            background-repeat: no-repeat;
+            width: 400px;
+            height: 120px;
+            margin-left: 120px;
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+        .divwinsharebtn {
+            width: 100%;
+            padding-top: 430px;
+            padding-bottom: 230px;
+        }
+
+        .divwinsharebtn2 {
+            background-image: url(image/sharebtn.png);
+            background-repeat: no-repeat;
+            width: 400px;
+            height: 120px;
+            margin-left: 110px;
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+        .divgm {
+            cursor: default;
+            width: 100%;
+            height: 100%;
+            display: none;
+            background-image: url(image/gamebg.png);
+            background-repeat: no-repeat;
+        }
+
+        .divscorewall {
+            background-color: transparent;
+            width: 100%;
+            height: 62px;
+            padding-top: 60px;
+            font-family: ClearSansBold,"Trebuchet MS", Arial, Helvetica, sans-serif;
+            font-size: 45px;
+            font-weight: bold;
+            color: #FFFFFF;
+            text-align: center;
+        }
+
+        .divscorewall1 {
+            width: 140px;
+            background-color: transparent;
+            margin-left: 250px;
+            float: left;
+        }
+
+        .divgameoverscorewall {
+            background-color: transparent;
+            width: 100%;
+            height: 62px;
+            padding-top: 278px;
+            font-family: ClearSansBold,"Trebuchet MS", Arial, Helvetica, sans-serif;
+            font-size: 45px;
+            font-weight: bold;
+            color: #FFFFFF;
+            text-align: center;
+        }
+
+        .divgameoverscorewall1 {
+            width: 140px;
+            background-color: transparent;
+            margin-left: 250px;
+            float: left;
+        }
+
+        .divgmscorewall {
+            background-color: transparent;
+            width: 100%;
+            height: 62px;
+            padding-top: 76px;
+            font-family: ClearSansBold,"Trebuchet MS", Arial, Helvetica, sans-serif;
+            font-size: 45px;
+            font-weight: bold;
+            color: #FFFFFF;
+            text-align: center;
+        }
+
+        .divgmscorewall1 {
+            width: 140px;
+            background-color: transparent;
+            margin-left: 270px;
+            float: left;
+        }
+
+        .divgmscorewall2 {
+            width: 140px;
+            background-color: transparent;
+            margin-left: 50px;
+            float: left;
+        }
+
+        .divgmconfig {
+            width: 100%;
+            height: 60px;
+            padding-top: 30px;
+            background-color: transparent;
+        }
+
+        .divgmconfig1 {
+            background-image: url(image/optionsbtn.png);
+            background-repeat: no-repeat;
+            width: 160px;
+            height: 60px;
+            float: left;
+            margin-left: 260px;
+            cursor: pointer;
+        }
+
+        .divgmconfig2 {
+            background-image: url(image/leaderboardbtn.png);
+            background-repeat: no-repeat;
+            width: 160px;
+            height: 60px;
+            margin-left: 30px;
+            float: left;
+            cursor: pointer;
+        }
+
+        .divscoremain {
+            background-color: transparent;
+            width: 580px;
+            height: 580px;
+            margin-top: 20px;
+            margin-left: 30px;
+        }
+
+        .divgmmain {
+            background-color: transparent;
+            width: 580px;
+            height: 580px;
+            margin-top: 33px;
+            margin-left: 30px;
+            cursor: default;
+        }
+
+        .divconfig {
+            background-repeat: no-repeat;
+            background-image: url(image/optionsbg.png);
+            cursor: default;
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+
+        .divconfigsound {
+            width: 100%;
+            height: 73px;
+            padding-top: 42px;
+            background-color: transparent;
+        }
+
+        .divconfigsound1 {
+            background-image: url(image/soundoffbtn.png);
+            background-repeat: no-repeat;
+            width: 77px;
+            height: 73px;
+            margin-left: 525px;
+            cursor: pointer;
+        }
+
+        .divconfigkeepgoing {
+            width: 100%;
+            padding-top: 100px;
+            padding-bottom: 40px;
+        }
+
+        .divconfigkeepgoing2 {
+            background-image: url(image/keepgoingbtn.png);
+            background-repeat: no-repeat;
+            width: 400px;
+            height: 120px;
+            margin-left: 110px;
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+        .divconfignewgame {
+            width: 100%;
+            padding-bottom: 40px;
+        }
+
+        .divconfignewgame2 {
+            background-image: url(image/newgamebtn.png);
+            background-repeat: no-repeat;
+            width: 400px;
+            height: 120px;
+            margin-left: 110px;
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+        .divconfigrate {
+            width: 100%;
+            padding-bottom: 40px;
+        }
+
+        .divconfigrate2 {
+            background-image: url(image/ratebtn.png);
+            background-repeat: no-repeat;
+            width: 400px;
+            height: 120px;
+            margin-left: 110px;
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+        .divconfighowtoplay {
+            width: 100%;
+            padding-bottom: 40px;
+        }
+
+        .divconfighowtoplay2 {
+            background-image: url(image/howtoplaybtn.png);
+            background-repeat: no-repeat;
+            width: 400px;
+            height: 120px;
+            margin-left: 110px;
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+        .divconfigbtnp1 {
+            width: 100%;
+            background-color: transparent;
+            height: 14px;
+            padding-top: 100px;
+            padding-left: 10px;
+        }
+
+        .divconfigbtnp2 {
+            width: 100%;
+            background-color: transparent;
+            height: 14px;
+            padding-top: 910px;
+            padding-left: 10px;
+        }
+
+        .divconfigbtn {
+            width: 100%;
+            background-color: transparent;
+            height: 14px;
+            padding-top: 55px;
+            padding-left: 10px;
+        }
+
+        .divconfigbtn2 {
+            margin: auto;
+            width: 310px;
+        }
+
+        .divmoregame {
+            background-repeat: no-repeat;
+            background-image: url(image/moregamebg.png);
+            cursor: default;
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+
+        .divabout {
+            background-repeat: no-repeat;
+            background-image: url(image/aboutbg.png);
+            cursor: default;
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+
+        .divhighscore {
+            background-repeat: no-repeat;
+            background-image: url(image/yourhighscoresbg.png);
+            cursor: default;
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+
+        .divscore {
+            background-repeat: no-repeat;
+            background-image: url(image/scoreboardbg.png);
+            cursor: default;
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+
+        .divscoremainblock {
+            width: 120px;
+            height: 120px;
+            background-color: transparent;
+            background-repeat: no-repeat;
+            margin-top: 20px;
+            margin-left: 20px;
+            float: left;
+            cursor: default;
+        }
+
+        .divgmmainblockimg {
+            width: 100%;
+            height: 100%;
+            background-repeat: no-repeat;
+            cursor: default;
+            display: block;
+        }
+
+        .divgmmainblock {
+            width: 120px;
+            height: 120px;
+            background-color: transparent;
+            background-repeat: no-repeat;
+            margin-top: 20px;
+            margin-left: 20px;
+            position: absolute;
+            border: none;
+            cursor: default;
+            display: none;
+        }
+
+        img {
+            text-decoration: none;
+            border: none;
+        }
+
+        @font-face {
+            font-family: ClearSansBold;
+            src: url(font/ClearSansBold.ttf);
+        }
+    </style>
+    <link href="css/index.css" rel="stylesheet" type="text/css" />
+    <script language="javascript" type="text/javascript">
+<!--
+//分享到腾讯微博
+function postToQQWB(integral,docurl){
+    var _t = encodeURI('你在《2048》中取得了最高'+integral+'分！欢迎小朋友们来体验！');
+    var _url = encodeURI(docurl);
+	var _u = 'http://v.t.qq.com/share/share.php?title='+_t+'&url='+_url;
+	window.open( _u,'转播到腾讯微博', 'width=630, height=380, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, location=yes, resizable=no, status=no' );
+}
+//分享到新浪微博
+function postToSINAWB(integral,docurl){
+	var _t = encodeURI('你在《2048》中取得了最高'+integral+'分！欢迎小朋友们来体验！');
+	var _url = encodeURI(docurl);
+	var _u = 'http://service.weibo.com/share/share.php?url='+_url+'&title='+_t;
+	window.open( _u,'转播到新浪微博', 'width=630, height=380, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, location=yes, resizable=no, status=no' );
+}
+
+//是否是谷歌浏览器
+function isChrome(){
+	return navigator.userAgent.indexOf("Chrome") > -1;
+}
+
+//写cookies
+function setCookie(name,value)
+{
+    name="2048."+name;
+	if(isChrome()){
+		setLocalStorage(name,value);
+	}
+	else{
+		var Days = 30;
+		var exp = new Date();
+		exp.setTime(exp.getTime() + Days*24*60*60*1000);
+		document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+	}
+}
+//读取cookies
+function getCookie(name)
+{
+    name="2048."+name;
+	if(isChrome()){
+		return getLocalStorage(name);
+	}
+	else{
+		var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+		if(arr=document.cookie.match(reg)){
+			return unescape(arr[2]);
+		}
+		else{
+			return null;
+		}
+	}
+}
+//删除cookies
+function delCookie(name)
+{
+    name="2048."+name;
+	if(isChrome()){
+		delLocalStorage(name);
+	}
+	else{
+		var exp = new Date();
+		exp.setTime(exp.getTime() - 1);
+		var cval=getCookie(name);
+		if(cval!=null){
+			document.cookie= name + "="+cval+";expires="+exp.toGMTString();
+		}
+	}
+}
+//写localStorage
+function setLocalStorage(name,value){
+	var storage = window.localStorage;
+	if(storage!=null){
+		storage.setItem(name,value);
+	}
+}
+//读localStorage
+function getLocalStorage(name){
+	var storage = window.localStorage;
+	if(storage!=null){
+		return storage.getItem(name);
+	}
+}
+//删localStorage
+function delLocalStorage(name){
+	var storage = window.localStorage;
+	if(storage!=null){
+		storage.removeItem(name);
+	}
+}
+
+//获取随机数
+function randomNext(under,over){
+   switch(arguments.length){//检测传入几个参数
+   	case 1:
+  	 return parseInt(Math.random()*under+1);
+   	case 2:
+  	 return parseInt(Math.random()*(over-under+1) + under);
+  	default:
+  	 return 0;
+   }
+}
+
+//切割字符串
+function splitStr(text){
+	if(text!=null){
+		var strArray = new Array;
+		strArray = text.split(",");
+		if(strArray[strArray.length-1]==null){
+			strArray.pop();//移除最后一个
+		}
+		else if(strArray[strArray.length-1]==""){
+			strArray.pop();//移除最后一个
+		}
+		return strArray;
+	}
+	else{
+		return null;
+	}
+}
+
+//转化为存储比赛记录
+function arrayToScoreRecordStr(){
+	var recordTxt="";
+	recordTxt=recordTxt+nowScore+",";
+	for(i=0;i<nowGMView.length;i++){
+		recordTxt=recordTxt+nowGMView[i]+",";
+	}
+	return recordTxt;
+}
+
+//配置信息
+function initConfig(){
+	isOpenGuide();//是否打开操作提示
+	isSoundoff();//声音开关
+	getHighScore();//取得最高分
+	getOldScoreRecord();//取得最近的成绩
+}
+//开关声音
+function setSoundoff(){
+	if(soundoff){
+		setCookie("soundoff","1");
+	}
+	else{
+		setCookie("soundoff","0");
+	}
+}
+function isSoundoff(){
+	var isOff=getCookie("soundoff");
+	if(isOff!=null){
+		if(isOff=="1"){
+			soundoff=true;
+		}
+		else{
+			soundoff=false;
+		}
+	}
+}
+//开关指导提示
+function setOpenGuide(){
+	if(showGuide){
+		setCookie("showGuide","1");
+	}
+	else{
+		setCookie("showGuide","0");
+	}
+}
+function isOpenGuide(){
+	var isOpen=getCookie("showGuide");
+	if(isOpen!=null){
+		if(isOpen=="0"){
+			showGuide=false;
+		}
+		else{
+			showGuide=true;
+		}
+	}
+}
+//最高分积分墙 传入游戏结束时分数
+function setHighScore(score){
+	if(highScore<score){
+		setCookie("score",score);
+		highScore=score;
+		displayGMHighScore();
+	}
+}
+function getHighScore(){
+	var s=getCookie("score");
+	if(s!=null){
+		highScore=parseInt(s);
+	}
+}
+//最近的最高纪录
+function getOldScoreRecord(){
+	var s1,s2,s3,s4,s5;
+	s1=getCookie("oldScore1");
+	s2=getCookie("oldScore2");
+	s3=getCookie("oldScore3");
+	s4=getCookie("oldScore4");
+	s5=getCookie("oldScore5");
+
+	if(s1!=null){
+		oldScore1=s1;
+	}
+	if(s2!=null){
+		oldScore2=s2;
+	}
+	if(s3!=null){
+		oldScore3=s3;
+	}
+	if(s4!=null){
+		oldScore4=s4;
+	}
+	if(s5!=null){
+		oldScore5=s5;
+	}
+}
+//传入游戏结束时分数
+function setOldScoreRecord2(){
+	setCookie("oldScore1",oldScore1);
+	setCookie("oldScore2",oldScore2);
+	setCookie("oldScore3",oldScore3);
+	setCookie("oldScore4",oldScore4);
+	setCookie("oldScore5",oldScore5);
+}
+function setOldScoreRecord(score){
+	var nowScore=arrayToScoreRecordStr();//当前游戏中的所有数据转为格式文本
+	var sArray1=splitStr(oldScore1);//将文本记录转化为数组
+	var sArray2=splitStr(oldScore2);
+	var sArray3=splitStr(oldScore3);
+	var sArray4=splitStr(oldScore4);
+	var sArray5=splitStr(oldScore5);
+	if(sArray1!=null&&sArray1.length==17){//记录1
+		var hs=parseInt(sArray1[0]);
+		if(score>hs){
+			oldScore5=oldScore4;
+			oldScore4=oldScore3;
+			oldScore3=oldScore2;
+			oldScore2=oldScore1;
+			oldScore1=nowScore;
+			setOldScoreRecord2();
+		}
+		else{
+			if(sArray2!=null&&sArray2.length==17){//记录2
+				hs=parseInt(sArray2[0]);
+				if(score>hs){
+					oldScore5=oldScore4;
+					oldScore4=oldScore3;
+					oldScore3=oldScore2;
+					oldScore2=nowScore;
+					setOldScoreRecord2();
+				}
+				else{
+					if(sArray3!=null&&sArray3.length==17){//记录3
+						hs=parseInt(sArray3[0]);
+						if(score>hs){
+							oldScore5=oldScore4;
+							oldScore4=oldScore3;
+							oldScore3=nowScore;
+							setOldScoreRecord2();
+						}
+						else{
+								if(sArray4!=null&&sArray4.length==17){//记录4
+									hs=parseInt(sArray4[0]);
+									if(score>hs){
+										oldScore5=oldScore4;
+										oldScore4=nowScore;
+										setOldScoreRecord2();
+									}
+									else{
+										if(sArray5!=null&&sArray5.length==17){//记录5
+											hs=parseInt(sArray5[0]);;
+											if(score>hs){
+												oldScore5=nowScore;
+												setOldScoreRecord2();
+											}
+										}
+										else{
+											oldScore5=nowScore;
+											setOldScoreRecord2();
+										}
+
+									}
+								}
+								else{
+									oldScore4=nowScore;
+									setOldScoreRecord2();
+								}
+
+							}
+						}
+						else{
+							oldScore3=nowScore;
+							setOldScoreRecord2();
+						}
+					}
+			}
+			else{
+				oldScore2=nowScore;
+				setOldScoreRecord2();
+			}
+
+		}
+
+	}
+	else{//添加记录
+		oldScore1=nowScore;
+		setOldScoreRecord2();
+	}
+}
+
+//写入当前游戏状态
+function setNowGMState(){
+	var state=arrayToScoreRecordStr();
+	setCookie("nowGMState",state);
+}
+//读取当前游戏状态
+function getNowGMState(){
+	var state=getCookie("nowGMState");
+	var sArray=splitStr(state);//将文本记录转化为数组
+	if(sArray!=null){
+		nowScore=parseInt(sArray[0]);
+		sArray.shift();//移除第一个
+		for(i=0;i<sArray.length;i++){
+			nowGMView[i]=parseInt(sArray[i]);
+		}
+		recoverGM();//更新游戏视图
+	}
+}
+
+//显示游戏时的最高积分榜
+function displayGMHighScore(){
+	divgmscorewall2.innerHTML=highScore;
+}
+
+//显示历史成绩墙 当前组号，当前历史数据
+function displayScoreWall(no,oldScore){
+	var sArray=splitStr(oldScore);//将文本记录转化为数组
+	if(sArray!=null){
+		if(sArray.length==17){
+			for(i=0;i<sArray.length;i++){
+				if(i==0){
+					getDocElem("dsw"+no).innerHTML=sArray[0];
+				}
+				else{
+					getDocElem("dsmb"+i+"_"+no).style.backgroundImage=getBlockUrl(sArray[i]);
+				}
+			}
+		}
+	}
+}
+
+//获取块地址
+function getBlockUrl(no){
+	if(no!="0"){
+		return "url(image/block"+no+".png)";
+	}
+	else{
+		return null;
+	}
+}
+function getBlockUrl2(no){
+	if(no!="0"){
+		return "image/block"+no+".png";
+	}
+	else{
+		return null;
+	}
+}
+
+//获取样式
+function getStyle(obj,attr){
+	if(obj.currentStyle){
+		return obj.currentStyle[attr];
+	}
+	else{
+		return document.defaultView.getComputedStyle(obj,null)[attr];
+	}
+}
+
+//获取样式的值
+function getStyleValue(obj,attr){
+	var t=getStyle(obj,attr);
+	if(t!=null){
+		t=t.replace("px","");
+		return parseInt(t);
+	}
+	else{
+		return null;
+	}
+}
+
+window.onload=loading;//加载事件
+document.onkeydown=keyEventMain;//按键事件
+document.onmousedown=downMouseMain;//按下鼠标事件
+document.onmouseup=upMouseMain;//释放鼠标事件
+document.oncontextmenu=OffRightMenu;//右键事件
+
+//初次加载
+function loading(){
+	initConfig();
+	initElem();
+	makeBlockPointLoc();//产生方块坐标
+	displayGMHighScore();//显示最高分
+	hideScroll();
+	initSoundOpenOrOff();//初始化音量图标
+	getNowGMState();//初始化上次记录
+	if(showGuide){
+		displayGuide1();
+	}
+	else{
+		displayGM();
+	}
+}
+
+//新游戏
+function openNewGM(){
+	if(isFinshAnim()){
+		hideGameOver();
+		emptyNowScoreNull();//清空积分
+		initViewVal();
+		keepOnGM();
+		makeBlockInfo();//产生默认块
+		makeBlockInfo();
+	}
+}
+function openNewGM2(){
+	makeBlockInfo();//产生默认块
+	makeBlockInfo();
+}
+
+//退出效果
+var quitOpc=1;
+function openQuitOpc(v){
+	if(quitOpc<=0){
+		v.style.display='none';
+		quitOpc=1;
+		v.style.opacity=quitOpc;
+	}
+	else{
+		quitOpc=quitOpc-0.05;
+		v.style.opacity=quitOpc;
+		window.setTimeout(function(){openQuitOpc(v);},20);
+	}
+}
+//进入效果
+var enterOpc=0;
+function openEnterOpc(v){
+	if(enterOpc>=1){
+		enterOpc=0;
+		v.style.opacity=1;
+	}
+	else{
+		v.style.display='block';
+		enterOpc=enterOpc+0.05;
+		v.style.opacity=enterOpc;
+		window.setTimeout(function(){openEnterOpc(v);},20);
+	}
+}
+
+//方块动画是否结束 记录是否存在调用动画
+var nowBlockAnimEnd=0;
+function setBlockEnd(){
+	nowBlockAnimEnd=nowBlockAnimEnd+1;
+}
+function delBlockEnd(){
+	nowBlockAnimEnd=nowBlockAnimEnd-1;
+}
+function isBlockEnd(){
+	if(nowBlockAnimEnd==0){//所有动画结束返回
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+//方块进入效果
+function openEnterBlock(v){
+	v.style.display="block";
+	setBlockEnd();
+	openEnterBlock1(v,0);
+	setBlockEnd();
+	openEnterBlock2(v,0);
+}
+//渐变动画
+function openEnterBlock1(v,off){
+	if(nowMoveBlockCount==0||off==0){//无移动动画时调用,防止冲突
+		if(off<1){
+			off=off+0.05;
+			v.style.opacity=off;
+			window.setTimeout(function(){openEnterBlock1(v,off);},15);
+		}
+		else{
+			delBlockEnd();
+		}
+	}
+	else{
+		window.setTimeout(function(){openEnterBlock1(v,off);},15);
+	}
+}
+//放大动画
+function openEnterBlock2(v,off){
+	var WH=120;//块的宽高
+	var WHOFF=10;//移动步长
+	var dx=getStyleValue(v,"marginLeft");//获取当前对象的相对坐标
+	var dy=getStyleValue(v,"marginTop");
+	if(off<WH){
+		if(off==0){//设置初始位置
+			v.style.marginTop=(dy+WH/2-WHOFF/2)+"px";
+			v.style.marginLeft=(dx+WH/2-WHOFF/2)+"px";
+			off=off+WHOFF;
+			v.style.width=off+"px";
+			v.style.height=off+"px";
+		}
+		else{
+			if(nowMoveBlockCount==0){//无移动动画时调用,防止冲突
+				v.style.marginTop=(dy-WHOFF/2)+"px";
+				v.style.marginLeft=(dx-WHOFF/2)+"px";
+				off=off+WHOFF;
+				v.style.width=off+"px";
+				v.style.height=off+"px";
+			}
+		}
+		window.setTimeout(function(){openEnterBlock2(v,off);},28);
+	}
+	else{
+		delBlockEnd();
+	}
+}
+//碰撞动画
+function openCollideBlock(v){
+	v.style.display="block";
+	setBlockEnd();
+	openCollideBlock1(v,120);
+}
+function openCollideBlock1(v,off){
+	if(nowMoveBlockCount==0){//无移动动画时调用
+		var WH=120;//块的宽高
+		var WHC=150;
+		var WHOFF=10;//移动步长
+		var dx=getStyleValue(v,"marginLeft");//获取当前对象的相对坐标
+		var dy=getStyleValue(v,"marginTop");
+		if(off<WHC){
+			if(off==0){//设置初始位置
+				v.style.marginTop=(dy+WH/2-WHOFF/2)+"px";
+				v.style.marginLeft=(dx+WH/2-WHOFF/2)+"px";
+			}
+			else{
+				v.style.marginTop=(dy-WHOFF/2)+"px";
+				v.style.marginLeft=(dx-WHOFF/2)+"px";
+			}
+			off=off+WHOFF;
+			v.style.width=off+"px";
+			v.style.height=off+"px";
+			window.setTimeout(function(){openCollideBlock1(v,off);},28);
+		}
+		else{
+			v.style.marginTop=(dy+WHC-WH-((WHOFF/2)*(WHC-WH)/10))+"px";
+			v.style.marginLeft=(dx+WHC-WH-((WHOFF/2)*(WHC-WH)/10))+"px";
+			v.style.width=WH+"px";
+			v.style.height=WH+"px";
+			delBlockEnd();
+		}
+	}
+	else{
+		window.setTimeout(function(){openCollideBlock1(v,off);},28);
+	}
+}
+//按钮淡入
+function openEnterBtn(v,off){
+	if(off<1){
+		if(off==0){
+			off=off+0.001;
+			v.style.opacity=off;
+			window.setTimeout(function(){openEnterBtn(v,off);},1000);
+		}
+		else{
+			off=off+0.05;
+			v.style.opacity=off;
+			window.setTimeout(function(){openEnterBtn(v,off);},15);
+		}
+	}
+}
+//移动动画 记录是否存在调用动画
+function setNowMoveBlockCount(){
+	nowMoveBlockCount=nowMoveBlockCount+1;
+}
+function delNowMoveBlockCount(){
+	nowMoveBlockCount=nowMoveBlockCount-1;
+}
+var nowMoveBlockCount=0;
+function moveBlock(v,startPointID,endPointID,i){
+	var sx=getBlockPointLocID(startPointID,true);//开始坐标x
+	var sy=getBlockPointLocID(startPointID,false);//开始坐标y
+	var ex=getBlockPointLocID(endPointID,true);//结束坐标x
+	var ey=getBlockPointLocID(endPointID,false);//结束坐标y
+	var off=14,WH=120;
+	if(sx==ex){
+		if(startPointID<endPointID){
+			if(i==0){//初始化参数
+				i=sy+off;
+			}
+			else{
+				i=i+off;
+			}
+			if(i<=ey){
+				v.style.marginLeft=sx+"px";
+				v.style.marginTop=i+"px";
+				if(ey<=i+off){//纠正最后一次可能无法到位
+					v.style.marginTop=ey+"px";
+					delNowMoveBlockCount();
+					delBlockEnd();
+				}
+				else{
+					window.setTimeout(function(){moveBlock(v,startPointID,endPointID,i);},5);
+				}
+			}
+			else{
+				delNowMoveBlockCount();
+				delBlockEnd();
+			}
+		}
+		else if(startPointID>endPointID){
+			if(i==0){//初始化参数
+				i=sy-off;
+			}
+			else{
+				i=i-off;
+			}
+			if(i>=ey){
+				v.style.marginLeft=sx+"px";
+				v.style.marginTop=i+"px";
+				if(ey>=i-off){//纠正最后一次可能无法到位
+					v.style.marginTop=ey+"px";
+					delNowMoveBlockCount();
+					delBlockEnd();
+				}
+				else{
+					window.setTimeout(function(){moveBlock(v,startPointID,endPointID,i);},5);
+				}
+			}
+			else{
+				delNowMoveBlockCount();
+				delBlockEnd();
+			}
+		}
+	}
+	else{
+		if(startPointID<endPointID){
+			if(i==0){//初始化参数
+				i=sx+off;
+			}
+			else{
+				i=i+off;
+			}
+			if(i<=ex){
+				v.style.marginLeft=i+"px";
+				v.style.marginTop=sy+"px";
+				if(ex<i+off){//纠正最后一次可能无法到位
+					v.style.marginLeft=ex+"px";
+					delNowMoveBlockCount();
+					delBlockEnd();
+				}
+				else{
+					window.setTimeout(function(){moveBlock(v,startPointID,endPointID,i);},5);
+				}
+			}
+			else{
+				delBlockEnd();
+				delNowMoveBlockCount();
+			}
+		}
+		else if(startPointID>endPointID){
+			if(i==0){//初始化参数
+				i=sx-off;
+			}
+			else{
+				i=i-off;
+			}
+			if(i>=ex){
+				v.style.marginLeft=i+"px";
+				v.style.marginTop=sy+"px";
+				if(ex>=i-off){//纠正最后一次可能无法到位
+					v.style.marginLeft=ex+"px";
+					delBlockEnd();
+					delNowMoveBlockCount();
+				}
+				else{
+					window.setTimeout(function(){moveBlock(v,startPointID,endPointID,i);},5);
+				}
+			}
+			else{
+				delNowMoveBlockCount();
+				delBlockEnd();
+			}
+		}
+	}
+}
+//设置位置
+function setDivLoc(v,PointID){
+	if(v!=null&&PointID!=null){
+		var x=getBlockPointLocID(PointID,true);//开始坐标x
+		var y=getBlockPointLocID(PointID,false);//开始坐标y
+		v.style.marginLeft=x+"px";
+		v.style.marginTop=y+"px";
+	}
+}
+
+//是否完成动画
+function isFinshAnim(){
+	if(enterOpc==0&&quitOpc==1){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
+//隐藏进度条
+function hideScroll(){
+	document.body.style.overflow="hidden";
+}
+
+//屏蔽右键菜单
+function OffRightMenu(){
+	event.returnValue=false;
+	return false;
+}
+
+//获取文档元素
+function getDocElem(id){
+	return document.getElementById(id);
+}
+
+var isSendBlock=false;//是否发送块
+var isMenuToThis=false;//是否是菜单触发的操作指导
+var isPlayGM=false;//是在游戏
+var blockL=[20,160,300,440];//块坐标X，Left
+var blockT=[20,160,300,440];//块坐标Y，Top
+var blockX=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],blockY=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];//16个方块坐标由方法生成方便移动滑块时少传参数
+var dwinkeepgoingbtn2,dgameovertryagainbtn2;
+var gmdsmb1,gmdsmb2,gmdsmb3,gmdsmb4,gmdsmb5,gmdsmb6,gmdsmb7,gmdsmb8,gmdsmb9,gmdsmb10,gmdsmb11,gmdsmb12,gmdsmb13,gmdsmb14,gmdsmb15,gmdsmb16;
+var gmdsmb1_img,gmdsmb2_img,gmdsmb3_img,gmdsmb4_img,gmdsmb5_img,gmdsmb6_img,gmdsmb7_img,gmdsmb8_img,gmdsmb9_img,gmdsmb10_img,gmdsmb11_img,gmdsmb12_img,gmdsmb13_img,gmdsmb14_img,gmdsmb15_img,gmdsmb16_img;
+var oldScore1,oldScore2,oldScore3,oldScore4,oldScore5;//大到小，历史数据存储格式（总成绩+各块数据（无块为0））：99999,0,2,4,8,0,2,4,8,0,2,4,8,0,2,4,8,
+var highScore=0,nowScore=0,nowGMView=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],nowGMViewIMGID=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];//1、正在游戏的视图、2、存放已经使用的div号，防止冲突
+var divgameover,divgmscorewall1,divgmscorewall2,divgameoverscorewall1_gmover;
+var bgs,bgs2,divguide1,divguide2,divguide3,divwin,main,divgm,divmoregame,divconfig,divabout,divhighscore,divscore1,divscore2,divscore3,divscore4,divscore5,divconfigsound1;
+//初始化元素
+function initElem(){
+	bgs=getDocElem("bgs");
+	bgs2=getDocElem("bgs2");
+	main=getDocElem("main");
+	divguide1=getDocElem("divguide1");
+	divguide2=getDocElem("divguide2");
+	divguide3=getDocElem("divguide3");
+	divwin=getDocElem("divwin");
+	divgm=getDocElem("divgm");
+	divmoregame=getDocElem("divmoregame");
+	divconfig=getDocElem("divconfig");
+	divabout=getDocElem("divabout");
+	divhighscore=getDocElem("divhighscore");
+	divscore1=getDocElem("divscore1");
+	divscore2=getDocElem("divscore2");
+	divscore3=getDocElem("divscore3");
+	divscore4=getDocElem("divscore4");
+	divscore5=getDocElem("divscore5");
+	divconfigsound1=getDocElem("divconfigsound1");
+	divgameover=getDocElem("divgameover");
+	divgmscorewall1=getDocElem("divgmscorewall1");
+	divgmscorewall2=getDocElem("divgmscorewall2");
+
+	gmdsmb1=getDocElem("gmdsmb1");
+	gmdsmb2=getDocElem("gmdsmb2");
+	gmdsmb3=getDocElem("gmdsmb3");
+	gmdsmb4=getDocElem("gmdsmb4");
+	gmdsmb5=getDocElem("gmdsmb5");
+	gmdsmb6=getDocElem("gmdsmb6");
+	gmdsmb7=getDocElem("gmdsmb7");
+	gmdsmb8=getDocElem("gmdsmb8");
+	gmdsmb9=getDocElem("gmdsmb9");
+	gmdsmb10=getDocElem("gmdsmb10");
+	gmdsmb11=getDocElem("gmdsmb11");
+	gmdsmb12=getDocElem("gmdsmb12");
+	gmdsmb13=getDocElem("gmdsmb13");
+	gmdsmb14=getDocElem("gmdsmb14");
+	gmdsmb15=getDocElem("gmdsmb15");
+	gmdsmb16=getDocElem("gmdsmb16");
+
+	gmdsmb1_img=getDocElem("gmdsmb1_img");
+	gmdsmb2_img=getDocElem("gmdsmb2_img");
+	gmdsmb3_img=getDocElem("gmdsmb3_img");
+	gmdsmb4_img=getDocElem("gmdsmb4_img");
+	gmdsmb5_img=getDocElem("gmdsmb5_img");
+	gmdsmb6_img=getDocElem("gmdsmb6_img");
+	gmdsmb7_img=getDocElem("gmdsmb7_img");
+	gmdsmb8_img=getDocElem("gmdsmb8_img");
+	gmdsmb9_img=getDocElem("gmdsmb9_img");
+	gmdsmb10_img=getDocElem("gmdsmb10_img");
+	gmdsmb11_img=getDocElem("gmdsmb11_img");
+	gmdsmb12_img=getDocElem("gmdsmb12_img");
+	gmdsmb13_img=getDocElem("gmdsmb13_img");
+	gmdsmb14_img=getDocElem("gmdsmb14_img");
+	gmdsmb15_img=getDocElem("gmdsmb15_img");
+	gmdsmb16_img=getDocElem("gmdsmb16_img");
+
+	dwinkeepgoingbtn2=getDocElem("dwinkeepgoingbtn2");
+	dgameovertryagainbtn2=getDocElem("dgameovertryagainbtn2");
+	divgameoverscorewall1_gmover=getDocElem("divgameoverscorewall1_gmover");
+}
+
+//生成方块坐标
+function makeBlockPointLoc(){
+	var js=0;
+	for(i=0;i<4;i++){
+		for(j=0;j<4;j++){
+			blockX[js]=blockL[j];
+			js=js+1;
+		}
+	}
+	js=0;
+	for(i=0;i<4;i++){
+		for(j=0;j<4;j++){
+			blockY[js]=blockT[i];
+			js=js+1;
+		}
+	}
+}
+//获取坐标当前块的位置编号1-16，横坐标、还是纵坐标
+function getBlockPointLocID(no,vOrH){
+	no=no-1;
+	if(no>-1&&no<16){
+		if(vOrH){
+			return blockX[no];
+		}
+		else{
+			return blockY[no];
+		}
+	}else{
+		return null;
+	}
+}
+
+//写入当前分数
+function setNowScore(val){
+	playSound1();//加分音
+	nowScore=nowScore+val;
+	displayNowScore();
+}
+//重置当前积分
+function emptyNowScoreNull(){
+	nowScore=0;
+	displayNowScore();
+}
+//显示当前积分
+function displayNowScore(){
+	divgmscorewall1.innerHTML=nowScore;
+}
+
+//显示操作提示
+var guidePageNO=1;
+var showGuide=true;
+function displayGuide(){
+	displayMainBgColor1();
+	switch(guidePageNO){
+	case -1:
+		divguide3.style.display="none";
+		divguide1.style.display="none";
+		divguide2.style.display="none";
+		break;
+	case 1:
+		divguide2.style.display="none";
+		divguide3.style.display="none";
+		break;
+	case 2:
+		divguide1.style.display="none";
+		divguide3.style.display="none";
+		break;
+	case 3:
+		divguide1.style.display="none";
+		divguide2.style.display="none";
+		break;
+	}
+}
+//显示操作提示1
+function displayGuide1(){
+	if(isFinshAnim()&&showGuide){
+		guidePageNO=1;
+		displayGuide();
+		openEnterOpc(divguide1);
+	}
+}
+//显示操作提示2
+function displayGuide2(){
+	if(isFinshAnim()&&showGuide){
+		guidePageNO=2;
+		displayGuide();
+		openEnterOpc(divguide2);
+	}
+}
+//显示操作提示3
+function displayGuide3(){
+	if(isFinshAnim()&&showGuide){
+		guidePageNO=3;
+		displayGuide();
+		openEnterOpc(divguide3);
+	}
+}
+//右滑动显示操作提示
+function displayGuideMouseRight(){
+	if(guidePageNO==1){
+		displayGuide2();
+	}
+	else if(guidePageNO==2){
+		displayGuide3();
+	}
+	else if(guidePageNO==3){
+		displayGuide1();
+	}
+}
+//左滑动显示操作提示
+function displayGuideMouseLeft(){
+	if(guidePageNO==1){
+		displayGuide3();
+	}
+	else if(guidePageNO==2){
+		displayGuide1();
+	}
+	else if(guidePageNO==3){
+		displayGuide2();
+	}
+}
+//隐藏操作提示框
+function hideGuide(){
+	guidePageNO=-1;
+	displayGuide();
+}
+//显示操作提示
+function gotoGuide(){
+	playSound2();
+	showGuide=true;
+	hideConfig();
+	displayGuide1();
+	isMenuToThis=true;
+}
+
+//显示胜利界面
+function displayWin(blockScore,s){
+	if(isFinshAnim()&&blockScore==2048){
+		isPlayGM=false;
+		if(s==1){
+			hideGM();
+			openEnterOpc(divwin);
+			openEnterBtn(dwinkeepgoingbtn2,0);
+			displayMainBgColor2();
+		}
+		else{
+			s=1;
+			window.setTimeout(function(){displayWin(blockScore,s);},2000);
+		}
+	}
+}
+//隐藏胜利界面
+function hideWin(){
+	divwin.style.display="none";
+}
+
+//显示游戏结束 延时调用
+function displayGameOver(s){
+	if(isFinshAnim()){
+		isPlayGM=false;
+		if(s==1){
+			hideGM();
+			openEnterOpc(divgameover);
+			openEnterBtn(dgameovertryagainbtn2,0);
+			divgameoverscorewall1_gmover.innerHTML=nowScore;
+		}
+		else{
+			s=1;
+			window.setTimeout(function(){displayGameOver(s);},2000);
+		}
+	}
+}
+//隐藏游戏结束
+function hideGameOver(){
+	setHighScore(nowScore);
+	setOldScoreRecord(nowScore);
+	divgameover.style.display="none";
+}
+
+//主屏显示淡黄色
+function displayMainBgColor1(){
+	main.style.backgroundColor="#FAF8EF";
+}
+//主屏显示黄色
+function displayMainBgColor2(){
+	main.style.backgroundColor="#FFEA8C";
+}
+
+//进入游戏界面
+function openGM(){
+	if(isFinshAnim()){
+		playSound2();
+		if(isMenuToThis){//是否是从菜单产生的操作
+			showGuide=false;
+			hideGuide();
+			displayConfig();
+			isMenuToThis=false;
+		}
+		else{
+			showGuide=false;
+			hideGuide();
+			displayGM();
+			setOpenGuide();//写入配置
+			openNewGM2();
+		}
+	}
+}
+
+//显示游戏界面
+function displayGM(){
+	if(isFinshAnim()){
+		displayMainBgColor1();
+		openEnterOpc(divgm);
+		isPlayGM=true;
+	}
+}
+//隐藏游戏界面
+function hideGM(){
+	divgm.style.display="none";
+	isPlayGM=false;
+}
+
+//显示排行榜界面
+function displayLeaderBoard(){
+	checkBlock();
+	openmoregame();
+}
+
+//开关声音
+var soundoff=false;
+function soundOpenOrOff(){
+	if(soundoff){
+		divconfigsound1.style.backgroundImage="url(image/soundonbtn.png)";
+		soundoff=false;
+	}
+	else{
+		divconfigsound1.style.backgroundImage="url(image/soundoffbtn.png)";
+		soundoff=true;
+	}
+	setSoundoff();
+	playSound2();
+}
+function initSoundOpenOrOff(){
+	if(soundoff){
+		divconfigsound1.style.backgroundImage="url(image/soundoffbtn.png)";
+	}
+	else{
+		divconfigsound1.style.backgroundImage="url(image/soundonbtn.png)";
+	}
+}
+
+//继续游戏
+function keepOnGM(){
+	if(isFinshAnim()){
+		playSound2();
+		hideConfig();
+		hideWin();
+		displayGM();
+	}
+}
+
+//显示设置页的组合界面
+var configPageNO=-1;
+var showConfigPage=false;
+function displayConfigPage(){
+	displayMainBgColor1();
+	switch(configPageNO){
+	case -1:
+		divmoregame.style.display="none";
+		divconfig.style.display="none";
+		divabout.style.display="none";
+		divhighscore.style.display="none";
+		divscore1.style.display="none";
+		divscore2.style.display="none";
+		divscore3.style.display="none";
+		divscore4.style.display="none";
+		divscore5.style.display="none";
+		break;
+	case 1:
+		divconfig.style.display="none";
+		divabout.style.display="none";
+		divhighscore.style.display="none";
+		divscore1.style.display="none";
+		divscore2.style.display="none";
+		divscore3.style.display="none";
+		divscore4.style.display="none";
+		divscore5.style.display="none";
+		break;
+	case 2:
+		divmoregame.style.display="none";
+		divabout.style.display="none";
+		divhighscore.style.display="none";
+		divscore1.style.display="none";
+		divscore2.style.display="none";
+		divscore3.style.display="none";
+		divscore4.style.display="none";
+		divscore5.style.display="none";
+		break;
+	case 3:
+		divmoregame.style.display="none";
+		divconfig.style.display="none";
+		divhighscore.style.display="none";
+		divscore1.style.display="none";
+		divscore2.style.display="none";
+		divscore3.style.display="none";
+		divscore4.style.display="none";
+		divscore5.style.display="none";
+		break;
+	case 4:
+		divmoregame.style.display="none";
+		divconfig.style.display="none";
+		divabout.style.display="none";
+		divscore1.style.display="none";
+		divscore2.style.display="none";
+		divscore3.style.display="none";
+		divscore4.style.display="none";
+		divscore5.style.display="none";
+		break;
+	case 5:
+		divmoregame.style.display="none";
+		divconfig.style.display="none";
+		divabout.style.display="none";
+		divhighscore.style.display="none";
+		divscore2.style.display="none";
+		divscore3.style.display="none";
+		divscore4.style.display="none";
+		divscore5.style.display="none";
+		break;
+	case 6:
+		divmoregame.style.display="none";
+		divconfig.style.display="none";
+		divabout.style.display="none";
+		divhighscore.style.display="none";
+		divscore1.style.display="none";
+		divscore3.style.display="none";
+		divscore4.style.display="none";
+		divscore5.style.display="none";
+		break;
+	case 7:
+		divmoregame.style.display="none";
+		divconfig.style.display="none";
+		divabout.style.display="none";
+		divhighscore.style.display="none";
+		divscore1.style.display="none";
+		divscore2.style.display="none";
+		divscore4.style.display="none";
+		divscore5.style.display="none";
+		break;
+	case 8:
+		divmoregame.style.display="none";
+		divconfig.style.display="none";
+		divabout.style.display="none";
+		divhighscore.style.display="none";
+		divscore1.style.display="none";
+		divscore2.style.display="none";
+		divscore3.style.display="none";
+		divscore5.style.display="none";
+		break;
+	case 9:
+		divmoregame.style.display="none";
+		divconfig.style.display="none";
+		divabout.style.display="none";
+		divhighscore.style.display="none";
+		divscore1.style.display="none";
+		divscore2.style.display="none";
+		divscore3.style.display="none";
+		divscore4.style.display="none";
+		break;
+	}
+}
+//显示设置界面
+//默认按钮的事件
+function displayConfigSound(){
+	if(isFinshAnim()){
+		playSound2();
+		displayConfig();
+	}
+}
+function displayConfig(){
+	if(isFinshAnim()){
+		hideGM();
+		configPageNO=2;
+		displayConfigPage();
+		openEnterOpc(divconfig);
+		showConfigPage=true;
+	}
+}
+//隐藏所有设置界面
+function hideConfig(){
+	configPageNO=-1;
+	showConfigPage=false;
+	displayConfigPage();
+}
+//显示更多游戏
+function displayMoreGame(){
+	if(isFinshAnim()){
+		configPageNO=1;
+		displayConfigPage();
+		openEnterOpc(divmoregame);
+	}
+}
+//显示关于
+function displayAbout(){
+	if(isFinshAnim()){
+		configPageNO=3;
+		displayConfigPage();
+		openEnterOpc(divabout);
+	}
+}
+//显示最高成绩
+function displayHighScore(){
+	if(isFinshAnim()){
+		configPageNO=4;
+		displayConfigPage();
+		openEnterOpc(divhighscore);
+	}
+}
+//显示成绩1
+function displayScore1(){
+	if(isFinshAnim()){
+		configPageNO=5;
+		displayConfigPage();
+		displayScoreWall(0,oldScore1);
+		openEnterOpc(divscore1);
+	}
+}
+//显示成绩2
+function displayScore2(){
+	if(isFinshAnim()){
+		configPageNO=6;
+		displayConfigPage();
+		displayScoreWall(1,oldScore2);
+		openEnterOpc(divscore2);
+	}
+}
+//显示成绩3
+function displayScore3(){
+	if(isFinshAnim()){
+		configPageNO=7;
+		displayConfigPage();
+		displayScoreWall(2,oldScore3);
+		openEnterOpc(divscore3);
+	}
+}
+//显示成绩4
+function displayScore4(){
+	if(isFinshAnim()){
+		configPageNO=8;
+		displayConfigPage();
+		displayScoreWall(3,oldScore4);
+		openEnterOpc(divscore4);
+	}
+}
+//显示成绩5
+function displayScore5(){
+	if(isFinshAnim()){
+		configPageNO=9;
+		displayConfigPage();
+		displayScoreWall(4,oldScore5);
+		openEnterOpc(divscore5);
+	}
+}
+//右滑动显示设置页
+function displayConfigPageMouseRight(){
+	if(configPageNO==1){
+		displayScore5();
+	}
+	else if(configPageNO==2){
+		displayMoreGame();
+	}
+	else if(configPageNO==3){
+		displayConfig();
+	}
+	else if(configPageNO==4){
+		displayAbout();
+	}
+	else if(configPageNO==5){
+		displayHighScore();
+	}
+	else if(configPageNO==6){
+		displayScore1();
+	}
+	else if(configPageNO==7){
+		displayScore2();
+	}
+	else if(configPageNO==8){
+		displayScore3();
+	}
+	else if(configPageNO==9){
+		displayScore4();
+	}
+}
+//左滑动显示设置页
+function displayConfigPageMouseLeft(){
+	if(configPageNO==1){
+		displayConfig();
+	}
+	else if(configPageNO==2){
+		displayAbout();
+	}
+	else if(configPageNO==3){
+		displayHighScore();
+	}
+	else if(configPageNO==4){
+		displayScore1();
+	}
+	else if(configPageNO==5){
+		displayScore2();
+	}
+	else if(configPageNO==6){
+		displayScore3();
+	}
+	else if(configPageNO==7){
+		displayScore4();
+	}
+	else if(configPageNO==8){
+		displayScore5();
+	}
+	else if(configPageNO==9){
+		displayMoreGame();
+	}
+}
+
+//按下鼠标
+var mouseX,mouseY,mouse2X,mouse2Y;
+var isMouseUp=false;
+function downMouseMain(ev){
+	mouseX=mousePos(ev).x;
+	mouseY=mousePos(ev).y;
+	isMouseUp=true;
+}
+//获取鼠标在屏幕中绝对坐标
+function mousePos(e){
+	var x,y;
+	var e = e||window.event;
+	return {
+		x:e.clientX+document.body.scrollLeft+document.documentElement.scrollLeft,
+		y:e.clientY+document.body.scrollTop+document.documentElement.scrollTop
+	};
+}
+//释放鼠标
+var mouseOffestValue=100,addX2X=0,addY2Y=0;//mouseOffestValue两点间距离触发事件的阀值
+function upMouseMain(ev){
+	if(isMouseUp){
+		ev = ev || window.event;
+		mouse2X=mousePos(ev).x;
+		mouse2Y=mousePos(ev).y;
+
+		//上下与左右强制分离 数值取大
+		if(mouse2X-mouseX>0){
+			addX2X=mouse2X-mouseX;
+		}
+		else if(mouseX-mouse2X>0){
+			addX2X=mouseX-mouse2X;
+		}
+		if(mouse2Y-mouseY>0){
+			addY2Y=mouse2Y-mouseY;
+		}
+		else if(mouseY-mouse2Y>0){
+			addY2Y=mouseY-mouse2Y;
+		}
+
+		//选择不同方向对
+		if(addX2X>addY2Y){
+			if(mouse2X-mouseX>mouseOffestValue){
+				mouseToRightEvent();
+			}
+			else if(mouseX-mouse2X>mouseOffestValue){
+				mouseToLeftEvent();
+			}
+		}
+		else if(addX2X<addY2Y){
+			if(mouse2Y-mouseY>mouseOffestValue){
+				mouseToBottomEvent();
+			}
+			else if(mouseY-mouse2Y>mouseOffestValue){
+				mouseToTopEvent();
+			}
+		}
+		isMouseUp=false;
+		mouseX=0;
+		mouse2X=0;
+		mouseY=0;
+		mouse2Y=0;
+	}
+}
+//键盘事件
+function keyEventMain(){
+	var kCode=event.keyCode;
+	if(kCode==38||kCode==87){
+		mouseToTopEvent();
+	}
+	else if(kCode==40||kCode==83){
+		mouseToBottomEvent();
+	}
+	else if(kCode==37||kCode==65){
+		mouseToLeftEvent();
+	}
+	else if(kCode==39||kCode==68){
+		mouseToRightEvent();
+	}
+}
+
+//鼠标向左事件
+function mouseToLeftEvent(){
+	if(showGuide){
+		displayGuideMouseLeft();
+	}
+	if(showConfigPage){
+		displayConfigPageMouseLeft();
+	}
+	if(isPlayGM&&isFinshAnim()&&isBlockEnd()){
+		checkMoveLeftBlock();
+	}
+}
+//鼠标向右事件
+function mouseToRightEvent(){
+	if(showGuide){
+		displayGuideMouseRight();
+	}
+	if(showConfigPage){
+		displayConfigPageMouseRight();
+	}
+	if(isPlayGM&&isFinshAnim()&&isBlockEnd()){
+		checkMoveRightBlock();
+	}
+}
+//鼠标向上事件
+function mouseToTopEvent(){
+	if(isPlayGM&&isFinshAnim()&&isBlockEnd()){
+		checkMoveTopBlock();
+	}
+}
+//鼠标向下事件
+function mouseToBottomEvent(){
+	if(isPlayGM&&isFinshAnim()&&isBlockEnd()){
+		checkMoveBottomBlock();
+	}
+}
+
+//播放音频
+function playSound1(){
+	if(!soundoff){
+		bgs2.innerHTML=playSound("sound/merge.wav");
+	}
+}
+function playSound2(){
+	if(!soundoff){
+		bgs.innerHTML=playSound("sound/move.wav");
+	}
+}
+function playSound(url){
+	return "<embed src=\""+url+"\" autoplay=\"true\" hidden=\"true\" loop=\"false\" width=\"0px\" height=\"0px\" type=\"audio/mpeg\"></embed>";
+}
+
+//打开更多游戏
+function openmoregame(){
+	playSound2();
+	window.open("http://my.oschina.net/BruceWan/blog");
+}
+
+//分享界面
+function sendShare(integral){
+	playSound2();
+	postToSINAWB(integral,"http://my.oschina.net/BruceWan/blog");
+}
+
+//各页分享
+function shareNowScore(){
+	sendShare(nowScore);
+}
+function shareOldScore(oldScore){
+	var sArray=splitStr(oldScore);//将文本记录转化为数组
+	if(sArray!=null){//记录1
+		var hs=parseInt(sArray[0]);
+		sendShare(hs);
+	}
+}
+function shareOldScore1(){
+	shareOldScore(oldScore1);
+}
+function shareOldScore2(){
+	shareOldScore(oldScore2);
+}
+function shareOldScore3(){
+	shareOldScore(oldScore3);
+}
+function shareOldScore4(){
+	shareOldScore(oldScore4);
+}
+function shareOldScore5(){
+	shareOldScore(oldScore5);
+}
+
+//核心游戏逻辑
+//取得块值2或4
+function getRandomBlockNO(){
+	var val=2;
+	val=randomNext(0,6);
+	if(val==3||val==1||val==0||val==5||val==6){//提高2的出现概率
+		val=2;
+	}
+	return val;
+}
+//从映射视图中选择空位号 0-15 号
+function getSpaceNO(){
+	var spaceNO=new Array();//存放空位编号
+	for(i=0;i<nowGMView.length;i++){
+		if(nowGMView[i]==0){
+			spaceNO.push(i);
+		}
+	}
+	if(spaceNO.length>-1){
+		var index=randomNext(0,spaceNO.length-1);//spaceNO.length-1以免越界
+		return spaceNO[index];
+	}
+	else{
+		return -1;//取不到空位返回-1
+	}
+}
+//随机产生块
+function makeBlockInfo(){
+	var spval=getRandomBlockNO();
+	var spno=getSpaceNO();
+	var divno=getDivBlockNO();
+	if(spno!=-1&&divno!=-1){//分配到数据
+		nowGMView[spno]=spval;//填充内部视图
+		nowGMViewIMGID[spno]=divno;//将分配的div块号放到对应的视图索引
+		initDivBlock(divno,spno+1,spval,true);
+		setNowGMState();//写入游戏状态
+	}
+}
+
+//恢复上次的视图
+function recoverGM(){
+	for(i=0;i<nowGMView.length;i++){
+		if(nowGMView[i]!=0){
+			var divno=getDivBlockNO();//分配块
+			if(divno!=-1){//分配到数据
+				nowGMViewIMGID[i]=divno;//将分配的div块号放到对应的视图索引
+				initDivBlock(divno,i+1,nowGMView[i],false);
+			}
+			else{
+				break;
+			}
+		}
+	}
+	displayNowScore();
+}
+
+//初始化新的块
+function initDivBlock(divno,PointLocID,spval,isOpenSound){
+	if(divno>0&&divno<17){
+		var viewc=getDivBlock(divno);
+		var viewcimgbox=getDivBlockImgBox(divno);
+		viewcimgbox.src=getBlockUrl2(spval+"");
+		setDivLoc(viewc,PointLocID);
+		if(isOpenSound){//首次初始化两个块无需声音
+			playSound2();//加载音效
+		}
+		openEnterBlock(viewc);
+	}
+}
+function getDivBlock(divno){
+	switch(divno){
+		case 1:
+		return gmdsmb1;
+		case 2:
+		return gmdsmb2;
+		case 3:
+		return gmdsmb3;
+		case 4:
+		return gmdsmb4;
+		case 5:
+		return gmdsmb5;
+		case 6:
+		return gmdsmb6;
+		case 7:
+		return gmdsmb7;
+		case 8:
+		return gmdsmb8;
+		case 9:
+		return gmdsmb9;
+		case 10:
+		return gmdsmb10;
+		case 11:
+		return gmdsmb11;
+		case 12:
+		return gmdsmb12;
+		case 13:
+		return gmdsmb13;
+		case 14:
+		return gmdsmb14;
+		case 15:
+		return gmdsmb15;
+		case 16:
+		return gmdsmb16;
+		default:
+		return null;
+	}
+}
+function getDivBlockImgBox(divno){
+	switch(divno){
+		case 1:
+		return gmdsmb1_img;
+		case 2:
+		return gmdsmb2_img;
+		case 3:
+		return gmdsmb3_img;
+		case 4:
+		return gmdsmb4_img;
+		case 5:
+		return gmdsmb5_img;
+		case 6:
+		return gmdsmb6_img;
+		case 7:
+		return gmdsmb7_img;
+		case 8:
+		return gmdsmb8_img;
+		case 9:
+		return gmdsmb9_img;
+		case 10:
+		return gmdsmb10_img;
+		case 11:
+		return gmdsmb11_img;
+		case 12:
+		return gmdsmb12_img;
+		case 13:
+		return gmdsmb13_img;
+		case 14:
+		return gmdsmb14_img;
+		case 15:
+		return gmdsmb15_img;
+		case 16:
+		return gmdsmb16_img;
+		default:
+		return null;
+	}
+}
+
+//获取可用div空闲块号 防止js子函数与父函数的变量冲突 f k
+function getDivBlockNO(){
+	var spaceNO=new Array();//存放非空编号
+	for(f=0;f<nowGMViewIMGID.length;f++){
+		if(nowGMViewIMGID[f]!=0){
+			spaceNO.push(nowGMViewIMGID[f]);
+		}
+	}
+	for(k=1;k<17;k++){
+		var isFree=true;
+		for(h=0;h<spaceNO.length;h++){
+			if(spaceNO[h]==k){
+				isFree=false;
+				break;
+			}
+		}
+		if(isFree){
+			return k;
+		}
+	}
+	return -1;
+}
+
+//隐藏所有块
+function hideBlock(divno){
+	var viewc=getDivBlock(divno);
+	var viewcimgbox=getDivBlockImgBox(divno);
+	viewc.style.display="none";
+	viewcimgbox.src=null;
+}
+//清空正在运行的视图
+function initViewVal(){
+	for(i=0;i<nowGMView.length;i++){
+		if(nowGMView[i]!=0){
+			nowGMView[i]=0;
+		}
+	}
+	for(i=0;i<nowGMViewIMGID.length;i++){
+		if(nowGMViewIMGID[i]!=0){
+			hideBlock(nowGMViewIMGID[i]);
+			nowGMViewIMGID[i]=0;
+		}
+	}
+	emptyNowScoreNull();
+}
+//碰撞移除撞击块
+function removeBlock(blockNO){
+	if(blockNO>-1&&blockNO<16){
+		var divno=nowGMViewIMGID[blockNO];//取出块的div号
+		if(divno>0&&divno<17){
+			hideBlock(divno);//隐藏块
+			nowGMView[blockNO]=0;//重置为0
+			nowGMViewIMGID[blockNO]=0;//重置为0
+		}
+	}
+}
+//更新被撞击块
+function updateBlock(blockNO,val){
+	if(blockNO>-1&&blockNO<16){
+		var divno=nowGMViewIMGID[blockNO];//取出块的div号
+		if(divno>0&&divno<17){
+			var viewc=getDivBlock(divno);
+			var viewcimgbox=getDivBlockImgBox(divno);
+			viewcimgbox.src=getBlockUrl2(val);
+			nowGMView[blockNO]=val;
+			openCollideBlock(viewc);
+		}
+	}
+}
+
+//将视图转化为行，列模型
+var row1,row2,row3,row4;//行模型
+var col1,col2,col3,col4;//列模型
+function gmViewToTwoArray(){
+	var tmpArray=new Array();
+	var tmpArray2=new Array();
+	var tmpArray3=new Array();
+	var tmpArray4=new Array();
+	for(i=0;i<nowGMView.length;i++){
+		if(i>-1&&i<4){
+			tmpArray.push(nowGMView[i]);
+		}
+		if(i>3&&i<8){
+			tmpArray2.push(nowGMView[i]);
+		}
+		if(i>7&&i<12){
+			tmpArray3.push(nowGMView[i]);
+		}
+		if(i>11&&i<16){
+			tmpArray4.push(nowGMView[i]);
+		}
+	}
+	row1=tmpArray.concat();//完整拷贝
+	row2=tmpArray2.concat();//完整拷贝
+	row3=tmpArray3.concat();//完整拷贝
+	row4=tmpArray4.concat();//完整拷贝
+	tmpArray.splice(0,tmpArray.length);//移除临时数组
+	tmpArray2.splice(0,tmpArray2.length);//移除临时数组
+	tmpArray3.splice(0,tmpArray3.length);//移除临时数组
+	tmpArray4.splice(0,tmpArray4.length);//移除临时数组
+	for(i=0;i<nowGMView.length;i++){
+		if(i%4==0){
+			tmpArray.push(nowGMView[i]);
+		}
+		else if(i%4==1){
+			tmpArray2.push(nowGMView[i]);
+		}
+		else if(i%4==2){
+			tmpArray3.push(nowGMView[i]);
+		}
+		else if(i%4==3){
+			tmpArray4.push(nowGMView[i]);
+		}
+	}
+	col1=tmpArray.concat();//完整拷贝
+	col2=tmpArray2.concat();//完整拷贝
+	col3=tmpArray3.concat();//完整拷贝
+	col4=tmpArray4.concat();//完整拷贝
+}
+
+//向上操作
+function dealColMouseTop(col,colID){
+	for(i=0;i<col.length;i++){
+		if(col[i]!=0){//取到空位
+			for(j=i+1;j<col.length;j++){
+				if(col[j]!=0){//相加
+					if(col[i]==col[j]){
+						col[i]=col[i]*2;//累加当前位置
+						col[j]=0;//清空下一位置
+						//同步更新视图与数据
+						var divno=nowGMViewIMGID[j*4+colID];//获取待移动的元素
+						nowGMView[i*4+colID]=col[i];
+						nowGMView[j*4+colID]=0;
+						removeBlock(j*4+colID);
+						updateBlock(i*4+colID,col[i]);
+						setNowScore(col[i]);
+						displayWin(col[i],0);
+						isSendBlock=true;
+					}
+					break;
+				}
+			}
+		}
+	}
+	for(i=0;i<col.length;i++){
+		if(col[i]==0){//取到空位
+			for(j=i+1;j<col.length;j++){
+				if(col[j]!=0){//填空位
+					col[i]=col[j];
+					col[j]=0;
+					//同步更新视图与数据
+					var divno=nowGMViewIMGID[j*4+colID];//重新对齐到新的索引
+					nowGMViewIMGID[i*4+colID]=divno;
+					nowGMViewIMGID[j*4+colID]=0;
+					var val=nowGMView[j*4+colID];//重新对齐到新的索引
+					nowGMView[i*4+colID]=val;
+					nowGMView[j*4+colID]=0;
+					setNowMoveBlockCount();
+					setBlockEnd();
+					moveBlock(getDivBlock(divno),j*4+colID+1,i*4+colID+1,0);//模拟移动动画
+					isSendBlock=true;
+					break;
+				}
+			}
+		}
+	}
+}
+//向下操作
+function dealColMouseBottom(col,colID){
+	for(i=col.length-1;i>-1;i--){
+		if(col[i]!=0){//取到空位
+			for(j=i-1;j>-1;j--){
+				if(col[j]!=0){//相加
+						if(col[i]==col[j]){
+							col[i]=col[i]*2;//累加当前位置
+							col[j]=0;//清空下一位置
+							//同步更新视图与数据
+							var divno=nowGMViewIMGID[j*4+colID];//获取待移动的元素
+							nowGMView[i*4+colID]=col[i];
+							nowGMView[j*4+colID]=0;
+							removeBlock(j*4+colID);
+							updateBlock(i*4+colID,col[i]);
+							setNowScore(col[i]);
+							displayWin(col[i],0);
+							isSendBlock=true;
+						}
+						break;
+				}
+			}
+		}
+	}
+	for(i=col.length-1;i>-1;i--){
+		if(col[i]==0){//取到空位
+			for(j=i-1;j>-1;j--){
+				if(col[j]!=0){//填空位
+					col[i]=col[j];
+					col[j]=0;
+					//同步更新视图与数据
+					var divno=nowGMViewIMGID[j*4+colID];//重新对齐到新的索引
+					nowGMViewIMGID[i*4+colID]=divno;
+					nowGMViewIMGID[j*4+colID]=0;
+					var val=nowGMView[j*4+colID];//重新对齐到新的索引
+					nowGMView[i*4+colID]=val;
+					nowGMView[j*4+colID]=0;
+					setNowMoveBlockCount();
+					setBlockEnd();
+					moveBlock(getDivBlock(divno),j*4+colID+1,i*4+colID+1,0);//模拟移动动画
+					isSendBlock=true;
+					break;
+				}
+			}
+		}
+	}
+}
+//向左操作
+function dealRowMouseLeft(row,rowID){
+	for(i=0;i<row.length;i++){
+		if(row[i]!=0){//取到空位
+			for(j=i+1;j<row.length;j++){
+				if(row[j]!=0){//相加
+					if(row[i]==row[j]){
+						row[i]=row[i]*2;//累加当前位置
+						row[j]=0;//清空下一位置
+						//同步更新视图与数据
+						var divno=nowGMViewIMGID[j+4*rowID];//获取待移动的元素
+						nowGMView[i+4*rowID]=row[i];
+						nowGMView[j+4*rowID]=0;
+						removeBlock(j+4*rowID);
+						updateBlock(i+4*rowID,row[i]);
+						setNowScore(row[i]);
+						displayWin(row[i],0);
+						isSendBlock=true;
+					}
+					break;
+				}
+			}
+		}
+	}
+	for(i=0;i<row.length;i++){
+		if(row[i]==0){//取到空位
+			for(j=i+1;j<row.length;j++){
+				if(row[j]!=0){//填空位
+					row[i]=row[j];
+					row[j]=0;
+					//同步更新视图与数据
+					var divno=nowGMViewIMGID[j+4*rowID];//重新对齐到新的索引
+					nowGMViewIMGID[i+4*rowID]=divno;
+					nowGMViewIMGID[j+4*rowID]=0;
+					var val=nowGMView[j+4*rowID];//重新对齐到新的索引
+					nowGMView[i+4*rowID]=val;
+					nowGMView[j+4*rowID]=0;
+					setNowMoveBlockCount();
+					setBlockEnd();
+					moveBlock(getDivBlock(divno),j+4*rowID+1,i+4*rowID+1,0);//模拟移动动画
+					isSendBlock=true;
+					break;
+				}
+			}
+		}
+	}
+}
+//向右操作
+function dealRowMouseRight(row,rowID){
+	for(i=row.length-1;i>-1;i--){
+		if(row[i]!=0){//取到空位
+			for(j=i-1;j>-1;j--){
+				if(row[j]!=0){//相加
+					if(row[i]==row[j]){
+						row[i]=row[i]*2;//累加当前位置
+						row[j]=0;//清空下一位置
+						//同步更新视图与数据
+						var divno=nowGMViewIMGID[j+4*rowID];//获取待移动的元素
+						nowGMView[i+4*rowID]=row[i];
+						nowGMView[j+4*rowID]=0;
+						removeBlock(j+4*rowID);
+						updateBlock(i+4*rowID,row[i]);
+						setNowScore(row[i]);
+						displayWin(row[i],0);
+						isSendBlock=true;
+					}
+					break;
+				}
+			}
+		}
+	}
+	for(i=row.length-1;i>-1;i--){
+		if(row[i]==0){//取到空位
+			for(j=i-1;j>-1;j--){
+				if(row[j]!=0){//填空位
+					row[i]=row[j];
+					row[j]=0;
+					//同步更新视图与数据
+					var divno=nowGMViewIMGID[j+4*rowID];//重新对齐到新的索引
+					nowGMViewIMGID[i+4*rowID]=divno;
+					nowGMViewIMGID[j+4*rowID]=0;
+					var val=nowGMView[j+4*rowID];//重新对齐到新的索引
+					nowGMView[i+4*rowID]=val;
+					nowGMView[j+4*rowID]=0;
+					setNowMoveBlockCount();
+					setBlockEnd();
+					moveBlock(getDivBlock(divno),j+4*rowID+1,i+4*rowID+1,0);//模拟移动动画
+					isSendBlock=true;
+					break;
+				}
+			}
+		}
+	}
+}
+//检测向上运动时方块
+function checkMoveTopBlock(){
+	isSendBlock=false;
+	gmViewToTwoArray();//刷新映射数组
+	dealColMouseTop(col1,0);
+	dealColMouseTop(col2,1);
+	dealColMouseTop(col3,2);
+	dealColMouseTop(col4,3);
+	if(isSendBlock){
+		makeBlockInfo();
+	}
+	checkGameOver();
+}
+//检测向下运动时方块
+function checkMoveBottomBlock(){
+	isSendBlock=false;
+	gmViewToTwoArray();//刷新映射数组
+	dealColMouseBottom(col1,0);
+	dealColMouseBottom(col2,1);
+	dealColMouseBottom(col3,2);
+	dealColMouseBottom(col4,3);
+	if(isSendBlock){
+		makeBlockInfo();
+	}
+	checkGameOver();
+}
+//检测向左运动时方块
+function checkMoveLeftBlock(){
+	isSendBlock=false;
+	gmViewToTwoArray();//刷新映射数组
+	dealRowMouseLeft(row1,0);
+	dealRowMouseLeft(row2,1);
+	dealRowMouseLeft(row3,2);
+	dealRowMouseLeft(row4,3);
+	if(isSendBlock){
+		makeBlockInfo();
+	}
+	checkGameOver();
+}
+//检测向右运动时方块
+function checkMoveRightBlock(){
+	isSendBlock=false;
+	gmViewToTwoArray();//刷新映射数组
+	dealRowMouseRight(row1,0);
+	dealRowMouseRight(row2,1);
+	dealRowMouseRight(row3,2);
+	dealRowMouseRight(row4,3);
+	if(isSendBlock){
+		makeBlockInfo();
+	}
+	checkGameOver();
+}
+
+//检测是否游戏结束
+//向上操作
+function dealColMouseTop2(col,colID){
+	for(i=0;i<col.length;i++){
+		if(col[i]!=0){//取到空位
+			for(j=i+1;j<col.length;j++){
+				if(col[j]!=0){//相加
+					if(col[i]==col[j]){
+						col[i]=col[i]*2;//累加当前位置
+						col[j]=0;//清空下一位置
+						isGMOver=false;
+					}
+					break;
+				}
+			}
+		}
+	}
+	for(i=0;i<col.length;i++){
+		if(col[i]==0){//取到空位
+			for(j=i+1;j<col.length;j++){
+				if(col[j]!=0){//填空位
+					col[i]=col[j];
+					col[j]=0;
+					isGMOver=false;
+					break;
+				}
+			}
+		}
+	}
+}
+//向下操作
+function dealColMouseBottom2(col,colID){
+	for(i=col.length-1;i>-1;i--){
+		if(col[i]!=0){//取到空位
+			for(j=i-1;j>-1;j--){
+				if(col[j]!=0){//相加
+					if(col[i]==col[j]){
+						col[i]=col[i]*2;//累加当前位置
+						col[j]=0;//清空下一位置
+						isGMOver=false;
+					}
+					break;
+				}
+			}
+		}
+	}
+	for(i=col.length-1;i>-1;i--){
+		if(col[i]==0){//取到空位
+			for(j=i-1;j>-1;j--){
+				if(col[j]!=0){//填空位
+					col[i]=col[j];
+					col[j]=0;
+					isGMOver=false;
+					break;
+				}
+			}
+		}
+	}
+}
+//向左操作
+function dealRowMouseLeft2(row,rowID){
+	for(i=0;i<row.length;i++){
+		if(row[i]!=0){//取到空位
+			for(j=i+1;j<row.length;j++){
+				if(row[j]!=0){//相加
+					if(row[i]==row[j]){
+						row[i]=row[i]*2;//累加当前位置
+						row[j]=0;//清空下一位置
+						isGMOver=false;
+					}
+					break;
+				}
+			}
+		}
+	}
+	for(i=0;i<row.length;i++){
+		if(row[i]==0){//取到空位
+			for(j=i+1;j<row.length;j++){
+				if(row[j]!=0){//填空位
+					row[i]=row[j];
+					row[j]=0;
+					isGMOver=false;
+					break;
+				}
+			}
+		}
+	}
+}
+//向右操作
+function dealRowMouseRight2(row,rowID){
+	for(i=row.length-1;i>-1;i--){
+		if(row[i]!=0){//取到空位
+			for(j=i-1;j>-1;j--){
+				if(row[j]!=0){//相加
+					if(row[i]==row[j]){
+						row[i]=row[i]*2;//累加当前位置
+						row[j]=0;//清空下一位置
+						isGMOver=false;
+					}
+					break;
+				}
+			}
+		}
+	}
+	for(i=row.length-1;i>-1;i--){
+		if(row[i]==0){//取到空位
+			for(j=i-1;j>-1;j--){
+				if(row[j]!=0){//填空位
+					row[i]=row[j];
+					row[j]=0;
+					isGMOver=false;
+					break;
+				}
+			}
+		}
+	}
+}
+var isGMOver=true;
+function checkGameOver(){
+	isGMOver=true;
+	gmViewToTwoArray();//刷新映射数组
+	dealRowMouseRight2(row1,0);
+	dealRowMouseRight2(row2,1);
+	dealRowMouseRight2(row3,2);
+	dealRowMouseRight2(row4,3);
+
+	dealRowMouseLeft2(row1,0);
+	dealRowMouseLeft2(row2,1);
+	dealRowMouseLeft2(row3,2);
+	dealRowMouseLeft2(row4,3);
+
+	dealColMouseTop2(col1,0);
+	dealColMouseTop2(col2,1);
+	dealColMouseTop2(col3,2);
+	dealColMouseTop2(col4,3);
+
+	dealColMouseBottom2(col1,0);
+	dealColMouseBottom2(col2,1);
+	dealColMouseBottom2(col3,2);
+	dealColMouseBottom2(col4,3);
+	if(isGMOver){
+		displayGameOver(0);
+	}
+}
+
+//校正UI
+function checkBlock(){
+	for(l=0;l<nowGMView.length;l++){
+		if(nowGMView[l]!=0){
+			setDivLoc(getDivBlock(nowGMViewIMGID[l]),l+1);
+		}
+	}
+}
+-->
+    </script>
+</head>
+
+<body id="main">
+    <div class="mainDisplay">
+        <!--导航页面-->
+        <div id="divguide1" class="divguide1">
+            <div class="divguidebtn">
+                <div class="pointorangebtn"></div>
+                <div class="pointgraybtn" onclick="displayGuide2()"></div>
+                <div class="pointgraybtn" onclick="displayGuide3()"></div>
+            </div>
+        </div>
+        <div id="divguide2" class="divguide2">
+            <div class="divguidebtn">
+                <div class="pointgraybtn" onclick="displayGuide1()"></div>
+                <div class="pointorangebtn"></div>
+                <div class="pointgraybtn" onclick="displayGuide3()"></div>
+            </div>
+        </div>
+        <div id="divguide3" class="divguide3">
+            <div class="divletsplaybtn"><div class="divletsplaybtn2" onclick="openGM()"></div></div>
+            <div class="divguidebtn2">
+                <div class="pointgraybtn" onclick="displayGuide1()"></div>
+                <div class="pointgraybtn" onclick="displayGuide2()"></div>
+                <div class="pointorangebtn"></div>
+            </div>
+        </div>
+        <!--开始页面-->
+        <div id="divgm" class="divgm">
+            <div class="divgmscorewall">
+                <div class="divgmscorewall1" id="divgmscorewall1">0</div>
+                <div class="divgmscorewall2" id="divgmscorewall2">0</div>
+            </div>
+            <div class="divgmconfig">
+                <div class="divgmconfig1" onclick="displayConfigSound()"></div>
+                <div class="divgmconfig2" onclick="displayLeaderBoard()"></div>
+            </div>
+            <div class="divgmmain">
+                <div class="divgmmainblock" id="gmdsmb1"><img id="gmdsmb1_img" ondragstart="return false;" class="divgmmainblockimg" /></div>
+                <div class="divgmmainblock" id="gmdsmb2"><img id="gmdsmb2_img" ondragstart="return false;" class="divgmmainblockimg" /></div>
+                <div class="divgmmainblock" id="gmdsmb3"><img id="gmdsmb3_img" ondragstart="return false;" class="divgmmainblockimg" /></div>
+                <div class="divgmmainblock" id="gmdsmb4"><img id="gmdsmb4_img" ondragstart="return false;" class="divgmmainblockimg" /></div>
+                <div class="divgmmainblock" id="gmdsmb5"><img id="gmdsmb5_img" ondragstart="return false;" class="divgmmainblockimg" /></div>
+                <div class="divgmmainblock" id="gmdsmb6"><img id="gmdsmb6_img" ondragstart="return false;" class="divgmmainblockimg" /></div>
+                <div class="divgmmainblock" id="gmdsmb7"><img id="gmdsmb7_img" ondragstart="return false;" class="divgmmainblockimg" /></div>
+                <div class="divgmmainblock" id="gmdsmb8"><img id="gmdsmb8_img" ondragstart="return false;" class="divgmmainblockimg" /></div>
+                <div class="divgmmainblock" id="gmdsmb9"><img id="gmdsmb9_img" ondragstart="return false;" class="divgmmainblockimg" /></div>
+                <div class="divgmmainblock" id="gmdsmb10"><img id="gmdsmb10_img" ondragstart="return false;" class="divgmmainblockimg" /></div>
+                <div class="divgmmainblock" id="gmdsmb11"><img id="gmdsmb11_img" ondragstart="return false;" class="divgmmainblockimg" /></div>
+                <div class="divgmmainblock" id="gmdsmb12"><img id="gmdsmb12_img" ondragstart="return false;" class="divgmmainblockimg" /></div>
+                <div class="divgmmainblock" id="gmdsmb13"><img id="gmdsmb13_img" ondragstart="return false;" class="divgmmainblockimg" /></div>
+                <div class="divgmmainblock" id="gmdsmb14"><img id="gmdsmb14_img" ondragstart="return false;" class="divgmmainblockimg" /></div>
+                <div class="divgmmainblock" id="gmdsmb15"><img id="gmdsmb15_img" ondragstart="return false;" class="divgmmainblockimg" /></div>
+                <div class="divgmmainblock" id="gmdsmb16"><img id="gmdsmb16_img" ondragstart="return false;" class="divgmmainblockimg" /></div>
+            </div>
+        </div>
+        <!--胜利页面-->
+        <div id="divwin" class="divwin">
+            <div class="divwinsharebtn"><div class="divwinsharebtn2" onclick="shareNowScore()"></div></div>
+            <div class="divwinkeepgoingbtn"><div id="dwinkeepgoingbtn2" class="divwinkeepgoingbtn2" onclick="keepOnGM()"></div></div>
+        </div>
+        <!--结束页面-->
+        <div id="divgameover" class="divgameover">
+            <div class="divgameoverscorewall">
+                <div class="divgameoverscorewall1" id="divgameoverscorewall1_gmover"></div>
+            </div>
+            <div class="divgameoversharebtn"><div class="divgameoversharebtn2" onclick="shareNowScore()"></div></div>
+            <div class="divgameovertryagainbtn"><div id="dgameovertryagainbtn2" class="divgameovertryagainbtn2" onclick="openNewGM()"></div></div>
+        </div>
+        <!--设置界面-->
+        <!--更多游戏-->
+        <div class="divmoregame" id="divmoregame">
+            <div class="divmoregamebtn"><div class="divmoregamebtn2" onclick="openmoregame()"></div></div>
+            <div class="divconfigbtnp1">
+                <div class="divconfigbtn2">
+                    <div class="pointgraybtn" onclick="displayScore5()"></div>
+                    <div class="pointgraybtn" onclick="displayScore4()"></div>
+                    <div class="pointgraybtn" onclick="displayScore3()"></div>
+                    <div class="pointgraybtn" onclick="displayScore2()"></div>
+                    <div class="pointgraybtn" onclick="displayScore1()"></div>
+                    <div class="pointgraybtn" onclick="displayHighScore()"></div>
+                    <div class="pointgraybtn" onclick="displayAbout()"></div>
+                    <div class="pointgraybtn" onclick="displayConfig()"></div>
+                    <div class="pointorangebtn"></div>
+                </div>
+            </div>
+        </div>
+        <!--菜单-->
+        <div id="divconfig" class="divconfig">
+            <div class="divconfigsound">
+                <div class="divconfigsound1" id="divconfigsound1" onclick="soundOpenOrOff()"></div>
+            </div>
+            <div class="divconfigkeepgoing"><div class="divconfigkeepgoing2" onclick="keepOnGM()"></div></div>
+            <div class="divconfignewgame"><div class="divconfignewgame2" onclick="openNewGM()"></div></div>
+            <div class="divconfigrate"><div class="divconfigrate2" onclick="openmoregame()"></div></div>
+            <div class="divconfighowtoplay"><div class="divconfighowtoplay2" onclick="gotoGuide()"></div></div>
+            <div class="divconfigbtn">
+                <div class="divconfigbtn2">
+                    <div class="pointgraybtn" onclick="displayScore5()"></div>
+                    <div class="pointgraybtn" onclick="displayScore4()"></div>
+                    <div class="pointgraybtn" onclick="displayScore3()"></div>
+                    <div class="pointgraybtn" onclick="displayScore2()"></div>
+                    <div class="pointgraybtn" onclick="displayScore1()"></div>
+                    <div class="pointgraybtn" onclick="displayHighScore()"></div>
+                    <div class="pointgraybtn" onclick="displayAbout()"></div>
+                    <div class="pointorangebtn"></div>
+                    <div class="pointgraybtn" onclick="displayMoreGame()"></div>
+                </div>
+            </div>
+        </div>
+        <!--关于-->
+        <div class="divabout" id="divabout">
+            <div class="divconfigbtnp2">
+                <div class="divconfigbtn2">
+                    <div class="pointgraybtn" onclick="displayScore5()"></div>
+                    <div class="pointgraybtn" onclick="displayScore4()"></div>
+                    <div class="pointgraybtn" onclick="displayScore3()"></div>
+                    <div class="pointgraybtn" onclick="displayScore2()"></div>
+                    <div class="pointgraybtn" onclick="displayScore1()"></div>
+                    <div class="pointgraybtn" onclick="displayHighScore()"></div>
+                    <div class="pointorangebtn"></div>
+                    <div class="pointgraybtn" onclick="displayConfig()"></div>
+                    <div class="pointgraybtn" onclick="displayMoreGame()"></div>
+                </div>
+            </div>
+        </div>
+        <!--最近的成绩-->
+        <div class="divhighscore" id="divhighscore">
+            <div class="divconfigbtnp2">
+                <div class="divconfigbtn2">
+                    <div class="pointgraybtn" onclick="displayScore5()"></div>
+                    <div class="pointgraybtn" onclick="displayScore4()"></div>
+                    <div class="pointgraybtn" onclick="displayScore3()"></div>
+                    <div class="pointgraybtn" onclick="displayScore2()"></div>
+                    <div class="pointgraybtn" onclick="displayScore1()"></div>
+                    <div class="pointorangebtn"></div>
+                    <div class="pointgraybtn" onclick="displayAbout()"></div>
+                    <div class="pointgraybtn" onclick="displayConfig()"></div>
+                    <div class="pointgraybtn" onclick="displayMoreGame()"></div>
+                </div>
+            </div>
+        </div>
+        <!--成绩1-->
+        <div class="divscore" id="divscore1">
+            <div class="divscorewall">
+                <div class="divscorewall1" id="dsw0">0</div>
+            </div>
+            <div class="divscoremain">
+                <div class="divscoremainblock" id="dsmb1_0"></div>
+                <div class="divscoremainblock" id="dsmb2_0"></div>
+                <div class="divscoremainblock" id="dsmb3_0"></div>
+                <div class="divscoremainblock" id="dsmb4_0"></div>
+
+                <div class="divscoremainblock" id="dsmb5_0"></div>
+                <div class="divscoremainblock" id="dsmb6_0"></div>
+                <div class="divscoremainblock" id="dsmb7_0"></div>
+                <div class="divscoremainblock" id="dsmb8_0"></div>
+
+                <div class="divscoremainblock" id="dsmb9_0"></div>
+                <div class="divscoremainblock" id="dsmb10_0"></div>
+                <div class="divscoremainblock" id="dsmb11_0"></div>
+                <div class="divscoremainblock" id="dsmb12_0"></div>
+
+                <div class="divscoremainblock" id="dsmb13_0"></div>
+                <div class="divscoremainblock" id="dsmb14_0"></div>
+                <div class="divscoremainblock" id="dsmb15_0"></div>
+                <div class="divscoremainblock" id="dsmb16_0"></div>
+            </div>
+            <div class="divscoresharebtn"><div class="divscoresharebtn2" onclick="shareOldScore1()"></div></div>
+            <div class="divconfigbtnp3">
+                <div class="divconfigbtn2">
+                    <div class="pointgraybtn" onclick="displayScore5()"></div>
+                    <div class="pointgraybtn" onclick="displayScore4()"></div>
+                    <div class="pointgraybtn" onclick="displayScore3()"></div>
+                    <div class="pointgraybtn" onclick="displayScore2()"></div>
+                    <div class="pointorangebtn"></div>
+                    <div class="pointgraybtn" onclick="displayHighScore()"></div>
+                    <div class="pointgraybtn" onclick="displayAbout()"></div>
+                    <div class="pointgraybtn" onclick="displayConfig()"></div>
+                    <div class="pointgraybtn" onclick="displayMoreGame()"></div>
+                </div>
+            </div>
+        </div>
+        <!--成绩2-->
+        <div class="divscore" id="divscore2">
+            <div class="divscorewall">
+                <div class="divscorewall1" id="dsw1">0</div>
+            </div>
+            <div class="divscoremain">
+                <div class="divscoremainblock" id="dsmb1_1"></div>
+                <div class="divscoremainblock" id="dsmb2_1"></div>
+                <div class="divscoremainblock" id="dsmb3_1"></div>
+                <div class="divscoremainblock" id="dsmb4_1"></div>
+
+                <div class="divscoremainblock" id="dsmb5_1"></div>
+                <div class="divscoremainblock" id="dsmb6_1"></div>
+                <div class="divscoremainblock" id="dsmb7_1"></div>
+                <div class="divscoremainblock" id="dsmb8_1"></div>
+
+                <div class="divscoremainblock" id="dsmb9_1"></div>
+                <div class="divscoremainblock" id="dsmb10_1"></div>
+                <div class="divscoremainblock" id="dsmb11_1"></div>
+                <div class="divscoremainblock" id="dsmb12_1"></div>
+
+                <div class="divscoremainblock" id="dsmb13_1"></div>
+                <div class="divscoremainblock" id="dsmb14_1"></div>
+                <div class="divscoremainblock" id="dsmb15_1"></div>
+                <div class="divscoremainblock" id="dsmb16_1"></div>
+            </div>
+            <div class="divscoresharebtn"><div class="divscoresharebtn2" onclick="shareOldScore2()"></div></div>
+            <div class="divconfigbtnp3">
+                <div class="divconfigbtn2">
+                    <div class="pointgraybtn" onclick="displayScore5()"></div>
+                    <div class="pointgraybtn" onclick="displayScore4()"></div>
+                    <div class="pointgraybtn" onclick="displayScore3()"></div>
+                    <div class="pointorangebtn"></div>
+                    <div class="pointgraybtn" onclick="displayScore1()"></div>
+                    <div class="pointgraybtn" onclick="displayHighScore()"></div>
+                    <div class="pointgraybtn" onclick="displayAbout()"></div>
+                    <div class="pointgraybtn" onclick="displayConfig()"></div>
+                    <div class="pointgraybtn" onclick="displayMoreGame()"></div>
+                </div>
+            </div>
+        </div>
+        <!--成绩3-->
+        <div class="divscore" id="divscore3">
+            <div class="divscorewall">
+                <div class="divscorewall1" id="dsw2">0</div>
+            </div>
+            <div class="divscoremain">
+                <div class="divscoremainblock" id="dsmb1_2"></div>
+                <div class="divscoremainblock" id="dsmb2_2"></div>
+                <div class="divscoremainblock" id="dsmb3_2"></div>
+                <div class="divscoremainblock" id="dsmb4_2"></div>
+
+                <div class="divscoremainblock" id="dsmb5_2"></div>
+                <div class="divscoremainblock" id="dsmb6_2"></div>
+                <div class="divscoremainblock" id="dsmb7_2"></div>
+                <div class="divscoremainblock" id="dsmb8_2"></div>
+
+                <div class="divscoremainblock" id="dsmb9_2"></div>
+                <div class="divscoremainblock" id="dsmb10_2"></div>
+                <div class="divscoremainblock" id="dsmb11_2"></div>
+                <div class="divscoremainblock" id="dsmb12_2"></div>
+
+                <div class="divscoremainblock" id="dsmb13_2"></div>
+                <div class="divscoremainblock" id="dsmb14_2"></div>
+                <div class="divscoremainblock" id="dsmb15_2"></div>
+                <div class="divscoremainblock" id="dsmb16_2"></div>
+            </div>
+            <div class="divscoresharebtn"><div class="divscoresharebtn2" onclick="shareOldScore3()"></div></div>
+            <div class="divconfigbtnp3">
+                <div class="divconfigbtn2">
+                    <div class="pointgraybtn" onclick="displayScore5()"></div>
+                    <div class="pointgraybtn" onclick="displayScore4()"></div>
+                    <div class="pointorangebtn"></div>
+                    <div class="pointgraybtn" onclick="displayScore2()"></div>
+                    <div class="pointgraybtn" onclick="displayScore1()"></div>
+                    <div class="pointgraybtn" onclick="displayHighScore()"></div>
+                    <div class="pointgraybtn" onclick="displayAbout()"></div>
+                    <div class="pointgraybtn" onclick="displayConfig()"></div>
+                    <div class="pointgraybtn" onclick="displayMoreGame()"></div>
+                </div>
+            </div>
+        </div>
+        <!--成绩4-->
+        <div class="divscore" id="divscore4">
+            <div class="divscorewall">
+                <div class="divscorewall1" id="dsw3">0</div>
+            </div>
+            <div class="divscoremain">
+                <div class="divscoremainblock" id="dsmb1_3"></div>
+                <div class="divscoremainblock" id="dsmb2_3"></div>
+                <div class="divscoremainblock" id="dsmb3_3"></div>
+                <div class="divscoremainblock" id="dsmb4_3"></div>
+
+                <div class="divscoremainblock" id="dsmb5_3"></div>
+                <div class="divscoremainblock" id="dsmb6_3"></div>
+                <div class="divscoremainblock" id="dsmb7_3"></div>
+                <div class="divscoremainblock" id="dsmb8_3"></div>
+
+                <div class="divscoremainblock" id="dsmb9_3"></div>
+                <div class="divscoremainblock" id="dsmb10_3"></div>
+                <div class="divscoremainblock" id="dsmb11_3"></div>
+                <div class="divscoremainblock" id="dsmb12_3"></div>
+
+                <div class="divscoremainblock" id="dsmb13_3"></div>
+                <div class="divscoremainblock" id="dsmb14_3"></div>
+                <div class="divscoremainblock" id="dsmb15_3"></div>
+                <div class="divscoremainblock" id="dsmb16_3"></div>
+            </div>
+            <div class="divscoresharebtn"><div class="divscoresharebtn2" onclick="shareOldScore4()"></div></div>
+            <div class="divconfigbtnp3">
+                <div class="divconfigbtn2">
+                    <div class="pointgraybtn" onclick="displayScore5()"></div>
+                    <div class="pointorangebtn"></div>
+                    <div class="pointgraybtn" onclick="displayScore3()"></div>
+                    <div class="pointgraybtn" onclick="displayScore2()"></div>
+                    <div class="pointgraybtn" onclick="displayScore1()"></div>
+                    <div class="pointgraybtn" onclick="displayHighScore()"></div>
+                    <div class="pointgraybtn" onclick="displayAbout()"></div>
+                    <div class="pointgraybtn" onclick="displayConfig()"></div>
+                    <div class="pointgraybtn" onclick="displayMoreGame()"></div>
+                </div>
+            </div>
+        </div>
+        <!--成绩5-->
+        <div class="divscore" id="divscore5">
+            <div class="divscorewall">
+                <div class="divscorewall1" id="dsw4">0</div>
+            </div>
+            <div class="divscoremain">
+                <div class="divscoremainblock" id="dsmb1_4"></div>
+                <div class="divscoremainblock" id="dsmb2_4"></div>
+                <div class="divscoremainblock" id="dsmb3_4"></div>
+                <div class="divscoremainblock" id="dsmb4_4"></div>
+
+                <div class="divscoremainblock" id="dsmb5_4"></div>
+                <div class="divscoremainblock" id="dsmb6_4"></div>
+                <div class="divscoremainblock" id="dsmb7_4"></div>
+                <div class="divscoremainblock" id="dsmb8_4"></div>
+
+                <div class="divscoremainblock" id="dsmb9_4"></div>
+                <div class="divscoremainblock" id="dsmb10_4"></div>
+                <div class="divscoremainblock" id="dsmb11_4"></div>
+                <div class="divscoremainblock" id="dsmb12_4"></div>
+
+                <div class="divscoremainblock" id="dsmb13_4"></div>
+                <div class="divscoremainblock" id="dsmb14_4"></div>
+                <div class="divscoremainblock" id="dsmb15_4"></div>
+                <div class="divscoremainblock" id="dsmb16_4"></div>
+            </div>
+            <div class="divscoresharebtn"><div class="divscoresharebtn2" onclick="shareOldScore5()"></div></div>
+            <div class="divconfigbtnp3">
+                <div class="divconfigbtn2">
+                    <div class="pointorangebtn"></div>
+                    <div class="pointgraybtn" onclick="displayScore4()"></div>
+                    <div class="pointgraybtn" onclick="displayScore3()"></div>
+                    <div class="pointgraybtn" onclick="displayScore2()"></div>
+                    <div class="pointgraybtn" onclick="displayScore1()"></div>
+                    <div class="pointgraybtn" onclick="displayHighScore()"></div>
+                    <div class="pointgraybtn" onclick="displayAbout()"></div>
+                    <div class="pointgraybtn" onclick="displayConfig()"></div>
+                    <div class="pointgraybtn" onclick="displayMoreGame()"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--添加两个音频-->
+    <span id="bgs"></span>
+    <span id="bgs2"></span>
+</body>
+</html>
